@@ -209,9 +209,12 @@ int main()
   cin >> cont_loop;
   cout << endl;
   
+  //fix the fact that the first loop is G, not G^2
+  cont_loop = cont_loop + 1;
+  
   for (int loops=1; loops<cont_loop; loops++)
   { 
-    cout  << "(G^"<<loops+1<<"):" << endl;
+    cout  << "(G^"<<loops<<"):" << endl;
     
     float psiLoops[dim];
     float GLoops[dim][dim];
@@ -276,7 +279,7 @@ int main()
     cout << endl;
     
     //I calculate now the final vector
-    cout << "psi" << loops+1 << "=(G^"<<loops+1<<")*psi0:" << endl;
+    cout << "psi" << loops << "=(G^"<<loops<<")*psi0:" << endl;
     
     float psiloops[dim];
     
@@ -307,23 +310,25 @@ int main()
     
     PCorrect = psiloops[i_chosen]*psiloops[i_chosen];
     cout << "wrong probability:" << PWrong << " correct probability:" << PCorrect << endl;
+    cout << endl;
 
     pCorrect_storage.push_back(PCorrect); 
     pWrong_storage.push_back(PWrong); 
   }
+
 
   //show the optimal times of computations
   int optimal_count = 1;
 
   for (int m=0; m < pCorrect_storage.size(); m++)
   {
-    cout << "pcorrect[" << m+2 << "]:" << pCorrect_storage[m] <<" pwrong[" << m+2 << "]:" << pWrong_storage[m] << endl; 
+    cout << "pcorrect[" << m+1 << "]:" << pCorrect_storage[m] <<" pwrong[" << m+1 << "]:" << pWrong_storage[m] << endl; 
   }
 
   int m=1;
   while (pCorrect_storage[m-1] < pCorrect_storage[m])
   {
-    int temp = m+2;
+    int temp = m+1;
     //cout << pCorrect_storage[m-1] << " " << pCorrect_storage[m] << endl;
     cout << "Optimal number of computations:" << temp << endl;
     m++;
